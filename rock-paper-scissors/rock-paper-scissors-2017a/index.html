@@ -1,0 +1,229 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<!--- 
+Author(s): Jeff Pottruff
+Version: 1.0
+Date created: May 24 2017
+Last updated: June 1 2017
+Description: 
+	A basic rock paper scissors game where the user plays against the computer
+Overview:
+	1) Computer randomly picks rock paper or scissors
+	2) Computer and player pick is displayed on screen
+	3) Winner is dispalyed and a tally of wins is kept for each player
+	4) Reset button to reset the score tally
+-->
+	<meta charset="utf-8">
+	<title>Rock-Paper-Scissors</title>
+
+	<style>
+		@import url(https://fonts.googleapis.com/css?family=Teko:400,600);
+
+		body {
+			
+			text-align: center; 			/*try taking this out if things mess up*/ 
+			background-color: black;		
+			font-family: Teko;
+		}
+
+		header {
+			color: white;
+			
+			margin: 0.5em;			
+			border: 5px;					
+		}
+
+		h1 {
+			font-size: 4em;
+			margin: 0;
+		}
+
+		table {
+			background-color: white;
+			width: 60%;						/* allows table to take up 60% of element; margins, border, padding take the rest */
+			margin: auto;					/* centers; whatever is left over after content, padding and border will be split horizontally */
+			border: 3px solid black;	  /* creates boarder around outside of the table/gameArea */
+			padding: 1em;					/* gives content within table some space from border */
+		}
+		th {
+			text-align: center;
+		}
+
+		#playerToken, #computerToken {
+			height: 15em;					/*making the image cell larger */
+			width: 40%;						/* evenly distributes space for image cells, rest taken up by vs. */
+			
+		}
+
+
+		form {
+			color: white;		
+			margin: 0.5em 0;
+		}
+
+		button {
+			margin-top: .5em;				/* spacing between user input and button */
+		}
+
+
+		footer {
+			color: grey;
+		}
+
+
+		/*responsive settings*/
+		@media only screen and (max-device-width: 420px) and (orientation: portrait), (max-device-width: 720px) and (orientation: landscape) {
+
+			header {
+				display: none;				/*removes header from smaller screen*/
+			}
+
+
+			main{
+				display: flex;				/* turns the whole of the main into a flex box */
+				width: 100%;
+				margin: 0 auto;
+				flex-direction: column;		/* ensures no elements go off to the side */
+			}
+		}
+
+		@media only screen and (max-device-width: 768 px) and (orientation: portrait), (max-device-width: 1024px) and (orientation: landscape) {
+
+			main{
+				display: flex;				/* turns the whole of the main into a flex box */
+				width: 100%;	
+				margin: 0 auto;
+				flex-direction: column;		/* ensures no elements go off to the side */
+			}
+			
+			form, table {
+				display: fixed;				/* FIXME: attempting to ensure form and table are always visible on the screen */
+			}
+		}
+
+	</style>
+
+</head>
+<body>
+	<header>
+		<h1>Rock - Paper - Scissors</h1>
+	</header>
+	<main>
+		<!--game area-->
+		<table>
+			<tr>									
+				<th colspan="3" id="resultMessage"></th>		
+			</tr>
+			<tr>
+				<td id="playerToken"></td>
+				<td>VS.</td>						
+				<td id="computerToken"></td>
+			</tr>
+			<tr>
+				<td>Player</td>
+				<td></td>							
+				<td>Computer</td>
+			</tr>
+			<tr>
+				<td>Wins: <span id="playerScore"></span></td>
+				<td></td>
+				<td>Wins: <span id="computerScore"></span></td>
+			</tr>
+		</table>
+
+		<!-- user selection form --> 		
+		<form>
+			<label>Your Move:</label>
+			<select id="userChoice">
+				<option value="rock">Rock</option>
+				<option value="paper">Paper</option>
+				<option value="scissors">Scissors</option>
+			</select>
+			<br>									
+			<button>Reset Scores</button>			<!-- clears board and win tally -->
+		</form>
+	</main>
+	<footer>
+		<address>Jeff Pottruff, 2017 © SYST10199 Web Programming, Sheridan College</address>
+	</footer>
+	
+<script>
+
+
+/* variables */
+var playerScore = 0;
+var computerScore = 0;
+
+/* functions */
+
+//fired when user makes a choice
+function displayResults(){
+	//local variables
+	var selection = document.getElementById("userChoice").value;		//stores the value coming in from the selection
+	var random = Math.random();											//generates random number to base computerChoice on
+	var randomString;													//used in computers choice
+	var resultMessage;													//displays results of the round
+	
+
+	//dispalying user's choice
+	if (selection === "rock"){
+		document.getElementById("playerToken").innerHTML = '<img src="images/rock.png" alt="rock">';
+	} else if (selection === "paper"){
+		document.getElementById("playerToken").innerHTML = '<img src="images/paper.png" alt="paper">';
+	} else if (selection === "scissors"){
+		document.getElementById("playerToken").innerHTML = '<img src="images/scissors.png" alt="scissors">';
+	}
+	
+	//displaying computers choice
+	if (random < 0.34){
+		document.getElementById("computerToken").innerHTML = '<img src="images/rock.png" alt="rock">';
+		randomString = "rock";
+	} else if (random < 0.67){
+		document.getElementById("computerToken").innerHTML = '<img src="images/paper.png" alt="paper">';
+		randomString = "paper";
+	} else {
+		document.getElementById("computerToken").innerHTML = '<img src="images/scissors.png" alt="scissors">';
+		randomString = "scissors";
+	}
+	
+	//finding winner/choosing appropriate message
+	if (selection === randomString) {
+		resultMessage = "It's a draw!";
+	} else if (selection === "rock" && randomString === "scissors" || selection === "paper" && randomString === "rock" || selection === "scissors" && randomString === "paper") {
+		resultMessage = "Congratulations! You Win!";
+		playerScore += 1;
+	} else {
+		resultMessage = "Computer Wins.";
+		computerScore += 1;
+	}
+	
+	
+	
+	//displaying message, changing background color of banner
+	document.getElementById("resultMessage").innerHTML = resultMessage;
+	if (resultMessage === "Congratulations! You Win!"){
+		document.getElementById("resultMessage").style.backgroundColor="green";
+	} else if (resultMessage === "Computer Wins.") {
+		document.getElementById("resultMessage").style.backgroundColor="red";
+	} else {
+		document.getElementById("resultMessage").style.backgroundColor="white";
+	}
+		
+	
+	//updating scores
+	document.getElementById("playerScore").innerHTML = playerScore;					
+	document.getElementById("computerScore").innerHTML = computerScore;				
+	
+	document.getElementById("userChoice").selectedIndex = "-1";						//resets userchoice dropdown so user can choose play again without losing score tally
+	
+}
+
+/* events/listeners */
+document.getElementById("userChoice").selectedIndex = "-1";							//allows user to pick any of the 3 options
+document.getElementById("userChoice").addEventListener("change", displayResults);	//fires function when user chooses their movemove
+
+
+</script>
+</body>
+</html>

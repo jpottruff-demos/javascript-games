@@ -1,0 +1,112 @@
+html{
+  /* FIXME: fall backs */
+
+  background-color: #323330;
+  /* for font options 1  */
+  /* font-family: 'Monoton', cursive; */
+  font-family: 'Open Sans', sans-serif;
+  color: #FFFAF0;
+}
+
+.container {
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  /* for font options 1  */
+  /* font-family: 'Bungee Shade', cursive; */
+  font-family: 'Galada', cursive;
+  font-weight: normal;
+  text-align: center;
+}
+
+i { color: #F0D04F;}
+
+h1, h3, .gameBoard,.gameInfo, .gameScores { min-width: 66%;}
+
+h3 {
+  display: flex;
+  justify-content: space-around;
+}
+
+span:nth-child(2) {margin-left: 1.6em;}
+
+.gameBoard {
+  min-height: 200px;
+  box-shadow: -.5em .5em #000000;
+  background-color: white;
+  color: #171717;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+#userToken, #computerToken {
+  flex-basis: 50%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.winner { background: radial-gradient(green 10%, white 60%); }
+.loser { background: radial-gradient(red 10%, white 60%); }
+.tie { background: radial-gradient( #F0D04F 10%, white 60%); }
+
+.gameInfo, .gameScores {
+  /* for font options 1  */
+  /* font-family: cursive; */
+  font-size: 1.25em;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gameScores {
+  flex-direction: row;
+}
+
+.score {
+  flex-basis: 50%;
+  display: flex;
+  justify-content: center;
+}
+
+#playerScore, #computerScore{
+  margin-left: 1em;
+}
+#result, .gameInfo > label { margin-top: .25em;}
+
+#result { min-height: 1.4em; }
+
+/* FIXME - make like other button */
+button {
+  border: none;
+  border-radius: 10px;
+  background-color: #F0D04F;
+  color: #323330;
+  box-shadow:  -.19em .19em #000000;
+  outline: none;
+  font-size: 1em;
+  font-weight: bold;
+
+  margin: 1em;
+}
+
+button:hover {
+  border: 2px solid white;
+  box-shadow:  -.19em .19em #F0D04F;
+
+  background-color: #171717;
+  color: #F0D04F;
+}
+
+button:active {
+  box-shadow:  -.08em .08em #F0D04F;
+  transform: translateY(4px);
+}

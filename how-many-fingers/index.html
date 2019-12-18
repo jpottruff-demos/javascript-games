@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>How Many Fingers Am I Holding Up?</title>
+  <meta charset="utf-8" />
+
+  <link rel="stylesheet" type="text/css" href="styles.css"  />
+</head>
+<body>
+  <div class="wrapper">
+
+    <h1>How many fingers am I holding up?</h1>
+
+    <div id="message"></div>
+    <input type="text" id="userGuess" placeholder="Enter your guess (0 - 10)"required />
+    <div id="guessSubmit">Submit<div>
+
+
+  </div>
+
+  <script>
+
+    let displayMessage = document.getElementById('message');
+    document.getElementById('guessSubmit').addEventListener('click', guessed);
+
+    function guessed() {
+      let fingersUp = Math.floor(Math.random() * 10);
+      let userGuess = document.getElementById('userGuess').value;
+      console.log(fingersUp);
+      console.log(userGuess);
+
+      let message = "";
+      
+      if (userGuess == fingersUp) {
+        message = "You got it!";
+      } else {
+        message = "Wrong, I was holding up " + fingersUp + " fingers.";
+      }
+
+      //let content = document.createTextNode(message);
+      displayMessage.innerHTML = message;
+
+    }
+
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+html {
+  /*NOTE: see https://css-tricks.com/perfect-full-page-background-image/*/
+  background: linear-gradient(#000000,#400040) center center fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+body {
+
+}
+
+.wrapper{
+  color: white;
+  padding: 15px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#control {
+  background-color: gray;
+  color: black;
+  border-radius: 50%;
+  padding: 10px;
+
+  font-size: 32px;
+  font-weight: bold;
+}
+
+#control:hover {
+  background-color: lightgray;
+}
+
+.on { border: 5px solid green; }
+.off{ border: 5px solid red; }
+.square {
+  height: 100px;
+  width: 100px;
+  background-color: blue;
+
+  position: relative;
+}
+
+.circle {
+  height: 100px;
+  width: 100px;
+  background-color: red;
+  border-radius: 50%;
+
+  position: relative;
+}
+
+.triangle {
+  height: 0;
+  width: 0;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  border-bottom: 50px solid transparent;
+  border-top: 50px solid transparent;
+
+  position: relative;
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Bungee+Shade|Monoton" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css?family=Galada|Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Rock Paper Scissors</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1><i class="fab fa-js-square"></i> Rock Paper Scissors</h1>
+      <h3>
+          <span>Player</span>
+          <span>VS</span>
+          <span>Computer</span>
+      </h3>
+
+      <div class="gameBoard">
+          <span id="userToken"></span>
+          <span id="computerToken"></span>
+      </div>
+
+      <div class="gameScores">
+        <p class="score">Player:<span id="playerScore">0</span></p>
+        <p class="score">Computer:<span id="computerScore">0</span></p>
+      </div>
+
+      <div class="gameInfo">
+        <span id="result"></span>
+        <label>Your Move:</label>
+        <select id="userChoice">
+          <option value="rock">Rock</option>
+          <option value="paper">Paper</option>
+          <option value="scissors">Scissors</option>
+        </select>
+
+        <button type="button" id="resetScores">Reset Scores</button>
+      </div>
+
+    </div>
+  </body>
+  <script src="js/scripts.js"></script>
+</html>

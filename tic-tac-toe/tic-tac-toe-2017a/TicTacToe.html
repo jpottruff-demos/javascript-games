@@ -1,0 +1,215 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>Tic Tac Toe</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--- 
+Author(s): Jeff Pottruff
+Version: 1.0
+Date created: May 19 2017
+Last updated: May 21 2017
+Description: 
+
+	A basic tic-tac-toe game in JavaScript
+
+Overview:
+	1) 2 player game with a 3x3 table and a reset button. 
+	2) Reset button will clear the board when pushed mid-game/on game end.
+
+
+Possible outcomes:
+ 	1) Winner - either player has 3 consective squares filled (8 possible combinations - vertical, horizontal, diagonal)
+	2) Draw - board is filled but neither player has 3 consecutive markers
+-->
+<style>
+main {
+	text-align: center;
+		width: 100%;
+}
+table {
+	margin: 25px auto;
+	padding: 18px;
+	background-color: white;
+	color: navy;
+	font-family: Helvetica,Arial,"Lucida Grande",sans-serif;
+}
+td {
+	height: 70px;
+	width: 70px;
+	font-size: 3.2em;
+	font-family: sans-serif;
+	border: 1px solid #00f;
+	background-color: transparent;
+}
+td:nth-child(1) {
+	border-left-style: none;
+}
+
+td:nth-child(3) {
+	border-right-style: none;
+}
+
+tr:nth-child(1)>td {
+	border-top-style: none;
+}
+
+tr:nth-child(3)>td {
+	border-bottom-style: none;
+}
+address {
+	text-align: center;
+}
+
+@media all and ( max-device-width: 500px ) and ( max-width: 500px ){
+	table {
+		width: 100%;
+		margin: 25px auto;
+		padding: 18px;
+		background-color: white;
+		color: GREEN;
+		font-family: Helvetica,Arial,"Lucida Grande",sans-serif;
+	}
+	header {
+		display: none;
+	}
+	h3 {		
+		font-size: 2em; 
+		margin:0; 
+		padding:0;
+	}	
+}
+
+</style>
+
+</head>
+<body>
+
+	<main>
+		<h3>Tic Tac Toe</h3>
+		<!-- game board -->
+		<table>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>        
+		</table>
+		
+		<!-- game info -->
+		<p>Player <span id="player">X</span>, it's your turn!</p>
+		<!-- content to be displayed when game is finished -->
+		<p id="winner"> </p>
+		<!-- add reset button -->
+		<p><button id="reset">Reset</button></p>
+		
+
+	</main>
+	<footer>
+		<address>Jeff Pottruff, 2017 © SYST10199 Web Programming, Sheridan College</address>
+	</footer>
+<script>
+ 
+/*
+Overview:
+	Variables needed:
+		Player 
+		emptyCells (initially 9) 
+		gameOver (initially false so there is no need to click play on initial load)
+
+		winningCombosArray - (starts at 0 to correspond with 0 index in board array variable)
+
+	Functions needed:
+		cellClick() - passes which cell was clicked back
+		checkWinner() - checks for winning combos
+		resetGame() - resets game board
+
+	TODO:
+		1) Tally wins vs. losses for player1/player2 - TODO
+		2) allow player to change name (maybe see https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps)
+*/
+
+//variable declarations
+var board = document.getElementsByTagName("td"); 		//creating array variable 'board' - storing all td elements in it
+var player = "X";
+var emptyCells = 9;
+
+var winningCombos = [[0, 1, 2], [3, 4, 5], [6, 7, 8],
+				    [0, 3, 6], [1, 4, 7], [2, 5, 8],
+				    [0, 4, 8], [2, 4, 6]
+				    ];									//2d array of winning combinations (horizontal, vertical, diagonal)
+
+var gameOver = false;									//when the page is loaded the game is in progress
+
+					
+					
+//functions
+function resetGame() {
+	//setting all td elements (stored in board variable) to "" (ie. empty)
+	for (var i = 0; i < board.length; i++){			
+		board[i].innerHTML = "";
+		}
+
+	//resetting game variables
+	player = "X"					
+	gameOver = false;			
+	emptyCells = 9;					
+	document.getElementById("winner").innerHTML = "";		
+	document.getElementById("player").innerHTML = player;
+}
+
+function cellClicked(cell) {
+		
+		if (cell.innerHTML === "" && gameOver === false) {		//if the cell is not "" (empty), the player cannot place token
+			emptyCells -= 1;										//subtracts one from the emptyCells variable
+			cell.innerHTML = player;								//changes the content of cell clicked to player's token
+		
+			checkWin();
+			player = (player === "X") ? "O" : "X";					//changes the player variable to the opposite player
+			document.getElementById("player").innerHTML = player;	//sets the player displayed on screen to what the player variable is set to
+		}
+	
+}
+
+
+function checkWin(){   
+	for ( i = 0; i < winningCombos.length; i++) {
+        if (board[winningCombos[i][0]].innerHTML == board[winningCombos[i][1]].innerHTML 			
+            && board[winningCombos[i][1]].innerHTML == board[winningCombos[i][2]].innerHTML 
+            && board[winningCombos[i][0]].innerHTML != "") {
+				document.getElementById("winner").innerHTML = "Game Over! Player " + player + " wins!";
+				gameOver = true;
+				break;				// no longer need to evaluate
+			} 
+	}
+	
+	//if board is full and no winner - game is a draw
+	if (emptyCells === 0 && gameOver == false) {
+			document.getElementById("winner").innerHTML = "Game over. It's a draw!";
+			gameOver = true;
+			}
+}
+
+//listeners
+
+//calls reset game function when pushed
+document.getElementById("reset").addEventListener("click", resetGame);
+
+//listener for cell clicks
+for (var i = 0; i < board.length; i++){
+		board[i].addEventListener("click", function() {cellClicked(this);})		//note: passing in this object(ie. cell clicked) to anonymous function that passes it into the cellClicked function
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <title>Challenge 1 - Disappearing Circles</title>
+  <meta charset="utf-8" />
+
+  <link rel="stylesheet" type="text/css" href="styles.css"  />
+</head>
+<body>
+  <div class="wrapper">
+
+  <div class="colors">
+    <div class="circle red"></div>
+    <div class="circle yellow"></div>
+    <div class="circle blue"></div>
+  </div>
+
+  <div class="button">
+    <div id="reset"><span>Reset</span></div>
+  </div>
+
+  </div>
+
+
+
+  <script>
+
+    /*initial debugging/testing*/
+    // document.getElementById('one').addEventListener("click", function(){alert("Hello");});
+    // document.getElementById('one').addEventListener("click", removeCircle);
+
+    //array of the circles
+    const circles = document.getElementsByClassName('circle');
+    const reset = document.getElementById('reset');
+
+    //adding event listeners
+    for (let i = 0; i < circles.length; i++) {
+      circles[i].addEventListener("click", removeCircle);
+    }
+
+    reset.addEventListener("click", restoreCircles);
+
+
+
+    //functions
+    function removeCircle() {
+      /*testing/debugging*/
+      // console.log('hi');
+      // console.log(this.className);
+
+      this.classList.add('removed');
+      console.log(this.className);
+    }
+
+    function restoreCircles() {
+      for (let i = 0; i < circles.length; i++) {
+        circles[i].classList.remove('removed');
+      }
+    }
+
+
+  </script>
+</body>
+</html>
